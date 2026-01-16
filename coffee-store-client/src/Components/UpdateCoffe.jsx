@@ -85,8 +85,6 @@ const UpdateCoffee = () => {
         </div>
     );
 };
-
-// 🔹 reusable input component (professional touch)
 const Input = ({ label, name, value, onChange }) => (
     <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
