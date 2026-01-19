@@ -5,12 +5,12 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCax4LwVJdUsivmhTL8k6c2xj6kcNrUb7Q",
-  authDomain: "coffeeproject-81695.firebaseapp.com",
-  projectId: "coffeeproject-81695",
-  storageBucket: "coffeeproject-81695.firebasestorage.app",
-  messagingSenderId: "824057548431",
-  appId: "1:824057548431:web:f326ddee54f5211086eafa"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASSE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
