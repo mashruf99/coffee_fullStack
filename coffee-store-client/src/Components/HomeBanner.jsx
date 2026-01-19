@@ -1,5 +1,6 @@
 import React from 'react';
 import banner from '../assets/banner.svg'
+import { NavLink } from 'react-router';
 const HomeBanner = () => {
     return (
         <div>
@@ -17,9 +18,22 @@ const HomeBanner = () => {
                         It's coffee time - Sip & Savor - Relaxation in every cup! Get the nostalgic scent of coffee
                         anytime! Check out the best coffee for you and enjoy these moments.
                     </p>
-                    <button className="bg-[#e3b577] hover:bg-[#d4a366] text-black px-6 py-2 rounded transition font-medium">
-                        Learn More
-                    </button>
+
+                    <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+                        <NavLink to="/signup">
+                            <button className="bg-[#e3b577] hover:bg-[#d4a366] text-black px-6 py-2 rounded transition font-medium">
+                                Sign Up
+                            </button>
+                        </NavLink>
+
+                        <NavLink to="/signin">
+                            <button className="bg-[#e3b577] hover:bg-[#d4a366] text-black px-6 py-2 rounded transition font-medium">
+                                Sign In
+                            </button>
+                        </NavLink>
+                    </div>
+                    
+
                 </div>
             </section>
         </div>

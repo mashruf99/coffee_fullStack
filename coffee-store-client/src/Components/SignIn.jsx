@@ -1,16 +1,20 @@
 import React from 'react';
 import Input from './Input';
 import { FaGoogle } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+
 
 const SignIn = () => {
+
     return (
-        <div className="min-h-screen bg-[#f4f3f0] py-20 px-4 text-black">
-            <div className="max-w-[20%] mx-auto bg-[#f8f6f3] rounded-lg shadow-md p-12">
+        <div className="min-h-screen bg-[#f4f3f0] py-16 px-4 text-black">
+            <div className="w-full max-w-md sm:max-w-lg mx-auto bg-[#f8f6f3] rounded-lg shadow-md p-8 sm:p-12">
+
                 <div className="text-center mb-10">
-                    <h1 className="text-4xl font-semibold text-[#374151]">
+                    <h1 className="text-3xl sm:text-4xl font-semibold text-[#374151]">
                         Login to Your Account
                     </h1>
-                    <p className="text-gray-500 mt-4">
+                    <p className="text-gray-500 mt-4 text-sm sm:text-base">
                         Add coffee to your collection by signing in
                     </p>
                 </div>
@@ -21,24 +25,20 @@ const SignIn = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-[#d2b48c] hover:bg-[#c19a6b] py-3 rounded-md border border-gray-700 font-medium"
+                        className="w-full bg-[#d2b48c] hover:bg-[#c19a6b] py-3 rounded-md border border-gray-700 font-medium transition"
                     >
                         Sign In
                     </button>
-
                     <div className="flex items-center gap-3 my-4">
-                        <div className="flex-grow h-px bg-gray-300" />
+                        <div className="grow h-px bg-gray-300" />
                         <span className="text-sm text-gray-500">OR</span>
-                        <div className="flex-grow h-px bg-gray-300" />
+                        <div className="grow h-px bg-gray-300" />
                     </div>
-
-
                     <div className="flex flex-col items-center">
                         <button
-
-                            className="group btn w-[60%] flex items-center gap-2 bg-white mb-2 text-black border border-black justify-center"
+                            type="button"
+                            className="group w-full sm:w-[60%] flex items-center gap-2 bg-white mb-2 text-black border border-black justify-center py-2 rounded-md"
                         >
-                            {/* Colorful Google (default visible) */}
                             <span className="block group-hover:hidden">
                                 <svg
                                     aria-label="Google logo"
@@ -56,25 +56,30 @@ const SignIn = () => {
                                     </g>
                                 </svg>
                             </span>
-
-                            {/* Black & white icon (hidden by default) */}
                             <span className="hidden group-hover:block">
                                 <FaGoogle size={14} />
                             </span>
 
-                            {/* Text */}
                             <p className="font-light group-hover:text-blue-600 transition">
                                 Login with Google
                             </p>
                         </button>
-
                     </div>
-
+                    <p className="text-center text-sm text-gray-600 mt-6">
+                        Don’t have an account?{" "}
+                        <NavLink
+                            to="/signup"
+                            className="text-[#c19a6b] font-medium hover:underline"
+                        >
+                            Sign up
+                        </NavLink>
+                    </p>
 
                 </form>
             </div>
         </div>
     );
+
 };
 
 export default SignIn;
