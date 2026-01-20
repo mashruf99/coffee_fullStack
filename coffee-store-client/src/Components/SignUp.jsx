@@ -3,11 +3,13 @@ import Input from './Input';
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from '../context/AuthContext';
 import { use } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+
 const SignUp = () => {
 
     const { createUser } = use(AuthContext);
+    const navigate = useNavigate();
     const handleSignUp = (e) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -22,20 +24,25 @@ const SignUp = () => {
                     headers:{
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify({email: user.email, ...rest, creationTime: user.metadata.creationTime})
+                    body: JSON.stringify({email: user.email, ...rest, creationTime: user.metadata.creationTime, firebaseUID: user.uid})
                 })
                 .then( res => res.json())
                 .then( data => {
                     Swal.fire("Added!", "User added", "success");
                     console.log(data);
                 })
+
                 form.reset();
             })
+            .then(() => navigate('/'))
             .catch(err => console.log(err));
     }
 
     return (
         <div className="min-h-screen bg-[#f4f3f0] py-20 px-4 text-black">
+            <NavLink to="/" className="text-[#c19a6b] bg-white p-2 border-2 rounded-lg font-medium hover:underline">
+                Back to Home
+            </NavLink>
             <div className="w-full max-w-md sm:max-w-lg mx-auto bg-[#f8f6f3] rounded-lg shadow-md p-8 sm:p-12">
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import Swal from 'sweetalert2'
+import { NavLink } from 'react-router-dom';
+
+
 const AddCoffee = () => {
-
-
-
     const handleAddCoffee = (e) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -53,6 +53,9 @@ const AddCoffee = () => {
 
     return (
         <div className="min-h-screen bg-[#f4f3f0] text-black py-20 px-4">
+            <NavLink to="/" className="text-[#c19a6b] bg-white p-2 border-2 rounded-lg font-medium hover:underline">
+                Back to Home
+            </NavLink>
             <div className="max-w-4xl mx-auto bg-[#f8f6f3] rounded-lg shadow-md p-12">
                 <div className="text-center mb-10 space-y-4">
                     <h1 className="text-5xl font-semibold text-[#374151]">

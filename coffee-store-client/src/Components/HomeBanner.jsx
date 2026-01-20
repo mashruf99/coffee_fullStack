@@ -20,15 +20,9 @@ const HomeBanner = () => {
                     </p>
 
                     <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-                        <NavLink to="/signup">
+                        <NavLink to="/add-coffee">
                             <button className="bg-[#e3b577] hover:bg-[#d4a366] text-black px-6 py-2 rounded transition font-medium">
-                                Sign Up
-                            </button>
-                        </NavLink>
-
-                        <NavLink to="/signin">
-                            <button className="bg-[#e3b577] hover:bg-[#d4a366] text-black px-6 py-2 rounded transition font-medium">
-                                Sign In
+                                Add Coffee
                             </button>
                         </NavLink>
                     </div>

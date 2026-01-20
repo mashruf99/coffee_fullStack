@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Input from './Input';
 import { FaGoogle } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-
-
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from '../context/AuthContext';
+import Swal from 'sweetalert2';
 const SignIn = () => {
+
+    const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleSignIn = (e) => {
+        e.preventDefault();
+
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        signIn(email, password)
+            .then(() => {
+                navigate('/');
+            })
+            .catch(err => {
+                console.log(err);
+                Swal.fire(
+                    "Login Failed!",
+                    "Email or password doesn't match",
+                    "error"
+                );
+            });
+    };
+
 
     return (
         <div className="min-h-screen bg-[#f4f3f0] py-16 px-4 text-black">
+            <NavLink to="/" className="text-[#c19a6b] bg-white p-2 border-2 rounded-lg font-medium hover:underline">
+                Back to Home
+            </NavLink>
             <div className="w-full max-w-md sm:max-w-lg mx-auto bg-[#f8f6f3] rounded-lg shadow-md p-8 sm:p-12">
 
                 <div className="text-center mb-10">
@@ -19,7 +46,7 @@ const SignIn = () => {
                     </p>
                 </div>
 
-                <form className="space-y-6">
+                <form onSubmit={handleSignIn} className="space-y-6">
                     <Input label="Email" name="email" type="email" />
                     <Input label="Password" name="password" type="password" />
 

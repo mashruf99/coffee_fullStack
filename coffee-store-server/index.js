@@ -64,10 +64,10 @@ async function run() {
 
 
 
-    app.put('/coffees/:id', async(req, res)=>{
+    app.put('/coffees/:id', async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
-      const options = { upsert: true};
+      const options = { upsert: true };
       const updatedCoffee = req.body;
       const updateDoc = {
         $set: updatedCoffee
@@ -92,11 +92,19 @@ async function run() {
       res.send(result);
     })
 
-    app.get('/users', async(req,res)=>{
+    app.get('/users', async (req, res) => {
       const cursor = usersCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     })
+
+    app.get('/users/uid/:uid', async (req, res) => {
+      const uid = req.params.uid;
+      const user = await usersCollection.findOne({ firebaseUID: uid });
+      res.send(user);
+    });
+
+
 
 
   } finally {
