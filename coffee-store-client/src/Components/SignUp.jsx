@@ -5,11 +5,39 @@ import { AuthContext } from '../context/AuthContext';
 import { use } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import { useContext } from 'react';
+
+
+
 
 const SignUp = () => {
+    const { googleSignIn } = useContext(AuthContext);
 
     const { createUser } = use(AuthContext);
     const navigate = useNavigate();
+
+
+    const handleGoogleSignUp = () => {
+    googleSignIn()
+        .then(result => {
+            const user = result.user;
+            localStorage.setItem("googleUser", JSON.stringify({
+                name: user.displayName,
+                email: user.email,
+                firebaseUID: user.uid,
+                creationTime: user.metadata.creationTime
+            }));
+
+            navigate("/complete-profile");
+        })
+        .catch(err => {
+            console.error(err);
+            Swal.fire("Error", "Google signup failed", "error");
+        });
+};
+
+
+
     const handleSignUp = (e) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -73,6 +101,7 @@ const SignUp = () => {
                     <div className="flex flex-col items-center">
                         <button
                             type="button"
+                            onClick={handleGoogleSignUp}
                             className="group btn w-[60%] flex items-center gap-2 bg-white mb-2 text-black border border-black justify-center"
                         >
                             <span className="block group-hover:hidden">

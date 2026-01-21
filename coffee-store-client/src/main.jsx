@@ -11,6 +11,8 @@ import CoffeeDetails from './Components/CoffeeDetails';
 import SignUp from './Components/SignUp';
 import SignIn from './Components/SignIn';
 import AuthProvider from './context/AuthProvider';
+import CompleteProfile from './Components/Completeprofile';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 
 const router = createBrowserRouter([
@@ -24,12 +26,16 @@ const router = createBrowserRouter([
     },
     {
       path: 'add-coffee',
-      Component: AddCoffee
+      element: <ProtectedRoute>
+        <AddCoffee></AddCoffee>
+      </ProtectedRoute>
     },
     {
       path: 'update-coffee/:id',
       loader: ({params})=> fetch(`http://localhost:3000/coffees/${params.id}`),
-      Component: UpdateCoffe
+      element: <ProtectedRoute>
+        <UpdateCoffe></UpdateCoffe>
+      </ProtectedRoute>
     },
     {
       path: 'coffee/:id',
@@ -42,6 +48,10 @@ const router = createBrowserRouter([
     {
       path: 'SignIn',
       Component: SignIn
+    },
+    {
+      path: 'complete-profile',
+      Component: CompleteProfile
     }
     ],
   }

@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Eye, Edit, Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { NavLink } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
 
 const CoffeCard = ({ coffee, coffees, setCoffees }) => {
+
+    const { user } = useContext(AuthContext);
 
     const { photo, name, chef, details } = coffee;
 
     const handleDelete = (_id) => {
+        if (!user) {
+            Swal.fire("Unauthorized", "You must login first!", "warning");
+            return;
+        }
         Swal.fire({
             title: "Are you sure?",
             text: "This coffee will be deleted permanently",

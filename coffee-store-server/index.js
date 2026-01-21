@@ -106,8 +106,38 @@ async function run() {
 
 
 
+    app.patch("/users", async (req, res) => {
+      const user = req.body;
+      const filter = { email: user.email };
+
+      const updateDoc = {
+        $set: {
+          name: user.name,
+          lastSignInTime: user.lastSignInTime
+        },
+        $setOnInsert: {
+          email: user.email,
+          firebaseUID: user.firebaseUID,
+          creationTime: user.creationTime,
+          role: ""
+        }
+      };
+
+      const options = { upsert: true };
+      const result = await usersCollection.updateOne(filter, updateDoc, options);
+      const userData = await usersCollection.findOne({ email: user.email });
+
+      if (!userData.role || userData.role === "") {
+        return res.json({ completeProfileNeeded: true, user: userData });
+      } else {
+        return res.json({ completeProfileNeeded: false, user: userData });
+      
+      }
+    });
+
 
   } finally {
+    // await client.close();
   }
 }
 run().catch(console.dir);

@@ -4,9 +4,13 @@ import { FaGoogle } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
+
+
+
 const SignIn = () => {
 
     const { signIn } = useContext(AuthContext);
+    const { googleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSignIn = (e) => {
@@ -28,6 +32,39 @@ const SignIn = () => {
                 );
             });
     };
+
+    const handleGoogleSignIn = async () => {
+    try {
+        const result = await googleSignIn();
+        const user = result.user;
+
+        const res = await fetch("http://localhost:3000/users", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firebaseUID: user.uid,
+                name: user.displayName || "",
+                email: user.email,
+                creationTime: user.metadata.creationTime
+            })
+        });
+
+        const data = await res.json();
+        if (data.completeProfileNeeded) {
+            navigate("/complete-profile");
+        } else {
+            navigate("/"); 
+        }
+    } catch (err) {
+        console.error(err);
+        Swal.fire("Error", "Google Sign-In failed", "error");
+    }
+};
+
+
+
+
+
 
 
     return (
@@ -64,6 +101,7 @@ const SignIn = () => {
                     <div className="flex flex-col items-center">
                         <button
                             type="button"
+                            onClick={handleGoogleSignIn}
                             className="group w-full sm:w-[60%] flex items-center gap-2 bg-white mb-2 text-black border border-black justify-center py-2 rounded-md"
                         >
                             <span className="block group-hover:hidden">
